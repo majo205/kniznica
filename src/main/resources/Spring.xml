@@ -19,6 +19,10 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	<bean id="help" class="org.seman.register.commands.Help">
 		<property name="command" ref="commandsMap" />
 	</bean>
+	
+	<bean id="Commander" class="org.seman.register.Commander">
+		<property name="commands" ref="commandsMap" />
+	</bean>
 
 	<util:map id="commandsMap" map-class="java.util.HashMap">
 		<entry key="create" value-ref="create" />
@@ -28,10 +32,5 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 		<entry key="help" value-ref="help" />
 		<entry key="exit" value-ref="exit" />
 	</util:map>
-
-
-	<bean id="Commander" class="org.seman.register.Commander">
-		<property name="commands" ref="commandsMap" />
-	</bean>
 
 </beans>
