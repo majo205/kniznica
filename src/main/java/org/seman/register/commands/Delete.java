@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.util.List;
 
 import org.seman.register.dbo.DatabaseHandler;
-import org.seman.register.dbo.Kniha;
+import org.seman.register.dbo.Book;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.FileSystemResource;
@@ -29,7 +29,7 @@ public class Delete implements Command {
 						System.in)).readLine().toLowerCase();
 				if (choice.equals("y")) {
 
-					List<Kniha> listKnih = new Read()
+					List<Book> listKnih = new Read()
 							.fillAndGetResultList(commandString);
 
 					System.out.println("Deleted rows :"
@@ -39,7 +39,7 @@ public class Delete implements Command {
 					System.out.println("Deleting canceled!");
 
 			} else {
-				List<Kniha> listKnih = new Read()
+				List<Book> listKnih = new Read()
 						.fillAndGetResultList(commandString);
 
 				System.out.println("Deleted rows :"

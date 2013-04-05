@@ -34,7 +34,7 @@ public class DatabaseHandler {
 		if (dbHandler == null) {
 
 			BeanFactory beanFactory = new XmlBeanFactory(
-					new FileSystemResource("Spring.xml"));
+					new FileSystemResource("src/main/resources/Spring.xml"));
 			dbHandler = (DatabaseHandler) beanFactory.getBean("DBHandler");
 			return dbHandler;
 		} else
@@ -65,11 +65,11 @@ public class DatabaseHandler {
 	public void initializeObjectsForDB() {
 		Date date = new Date();
 
-		Object book1 = new Kniha("J.R.R. Tolkien", 1968, "LOTR", "ikar",
+		Object book1 = new Book("J.R.R. Tolkien", 1968, "LOTR", "ikar",
 				"fantasy", new Timestamp(date.getTime()));
-		Object book2 = new Kniha("JK Rowling", 1999, "HP", "slovart",
+		Object book2 = new Book("JK Rowling", 1999, "HP", "slovart",
 				"rozpravka", new Timestamp(date.getTime()));
-		Object book3 = new Kniha();
+		Object book3 = new Book();
 
 		objectsForDB.add(book1);
 		objectsForDB.add(book2);
@@ -160,11 +160,11 @@ public class DatabaseHandler {
 	 * 
 	 * @return
 	 */
-	public List<Kniha> selectAll() {
+	public List<Book> selectAll() {
 		dbSession = sessionFactory.openSession();
 		dbSession.beginTransaction();
-		Criteria criteria = dbSession.createCriteria(Kniha.class);
-		List<Kniha> result = criteria.list();
+		Criteria criteria = dbSession.createCriteria(Book.class);
+		List<Book> result = criteria.list();
 		dbSession.getTransaction().commit();
 		dbSession.close();
 		return result;
@@ -181,7 +181,7 @@ public class DatabaseHandler {
 		dbSession = sessionFactory.openSession();
 		dbSession.beginTransaction();
 
-		Criteria criteria = dbSession.createCriteria(Kniha.class);
+		Criteria criteria = dbSession.createCriteria(Book.class);
 
 		for (int i = 0; i < commandList.size(); i++) {
 
@@ -301,7 +301,7 @@ public class DatabaseHandler {
 			}
 		}
 
-		Kniha insertBook = new Kniha(autor, rokVydania, nazov, vydavatelstvo,
+		Book insertBook = new Book(autor, rokVydania, nazov, vydavatelstvo,
 				zaner, new Timestamp(new Date().getTime()));
 		insertsSession.save(insertBook);
 
@@ -315,7 +315,7 @@ public class DatabaseHandler {
 	 * 
 	 */
 	public int updateTable(List<List<String>> commandString) {
-		List<Kniha> itemsForUpdaeList;
+		List<Book> itemsForUpdaeList;
 		int zmenenychRiadkov = 0;
 		String columnName, newValue;
 
@@ -330,13 +330,13 @@ public class DatabaseHandler {
 			newValue = commandString.get(0).get(1);
 			commandString.remove(0);
 
-			itemsForUpdaeList = (List<Kniha>) this
+			itemsForUpdaeList = (List<Book>) this
 					.selectFromTable(commandString);
 
 			Session updateSession = sessionFactory.openSession();
 			updateSession.beginTransaction();
 
-			for (Kniha object : itemsForUpdaeList) {
+			for (Book object : itemsForUpdaeList) {
 
 				if (columnName.toUpperCase().startsWith("AUTOR")) {
 					object.setAutor(newValue);
@@ -377,14 +377,14 @@ public class DatabaseHandler {
 	 * 
 	 * @throws IOException
 	 */
-	public int deleteFromTable(List<Kniha> listKnih) throws IOException {
+	public int deleteFromTable(List<Book> listKnih) throws IOException {
 
 		int zmazanychRiadkov = 0;
 
 		Session deleteSession = sessionFactory.openSession();
 
 		deleteSession.beginTransaction();
-		for (Kniha kniha : listKnih) {
+		for (Book kniha : listKnih) {
 			deleteSession.delete(kniha);
 			zmazanychRiadkov++;
 		}

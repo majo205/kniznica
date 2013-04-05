@@ -5,20 +5,9 @@ import javax.persistence.*;
 
 
 @Entity //(name= "Book")
-public class Kniha {
+public class Book {
 	
-//	@Id
-//	@Column (name= "id", nullable= false, unique= true)
-//	@GeneratedValue (strategy=GenerationType.IDENTITY)
-//	private int idKnihy;
-//	
-//	private String autor= "autor";
-//	private int rokVydania= 1999;
-//	
-//	private String nazov= "nazov";
-//	private String vydavatelstvo= "vydavatelstvo";
-//	private String zaner= "zaner";
-//	private Timestamp timestamp= new Timestamp(new java.util.Date().getTime());
+
 	
 	@Id
 	@Column (name= "id", nullable= false, unique= true)
@@ -33,11 +22,11 @@ public class Kniha {
 	public String zaner= "zaner";
 	public Timestamp timestamp= new Timestamp(new java.util.Date().getTime());
 
-	public Kniha() {
+	public Book() {
 
 	}
 	
-	public Kniha(String autor, int rokVydania, String nazov){
+	public Book(String autor, int rokVydania, String nazov){
 		this.setAutor(autor);
 		this.setRokVydania(rokVydania);
 		this.setNazov(nazov);
@@ -45,7 +34,7 @@ public class Kniha {
 		
 	}
 
-	public Kniha(String autor, int rokVydania, String nazov,
+	public Book(String autor, int rokVydania, String nazov,
 			String vydavatelstvo, String zaner, Timestamp timestamp) {
 		this(autor,rokVydania,nazov);
 		this.setVydavatelstvo(vydavatelstvo);

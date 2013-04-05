@@ -1,46 +1,46 @@
 package org.seman.register.commands;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.seman.register.Commander;
 
 public class Help implements Command {
 
 	private String commandString;
+	private Map<String, Command> command;
 
 	@Override
 	public void execute() {
 
-		
-		switch (commandString) {
-		case " create":
-			System.out.println(new Create().getHelpDescription());
-			break;
-		case " read":
-			System.out.println(new Read().getHelpDescription());
-			break;
-		case " update":
-			System.out.println(new Update().getHelpDescription());
-			break;
-		case " delete":
-			System.out.println(new Delete().getHelpDescription());
-			break;
-		case " help":
-			System.out.println(new Help().getHelpDescription());
-			break;
-		default:
-			//System.out.println("Unsupported command!");
-			System.out.println("Supported commands: ");
-			System.out.println("create");
-			System.out.println("read");
-			System.out.println("update");
-			System.out.println("delete");
-			System.out.printf("%nType \"help <command>\" for more information%n");
-			
-			break;
+		System.out.println();
+		if (!getCommand().containsKey(commandString)) {
+
+			if (!commandString.isEmpty())
+				System.out.println("\"" + commandString
+						+ "\" is not supported command!");
+			System.out.println("Supported commands :");
+
+			Collection<?> listOfcommands = getCommand().values();
+
+			for (Object object : listOfcommands) {
+				System.out.println("  " + object.getClass().getSimpleName());
+			}
+
+			System.out
+					.printf("%nType \"help <command>\" for more information%n");
+
+		} else {
+			System.out.println("Command "+getCommand().get(commandString).getClass().getSimpleName()+" - description :\n");
+			System.out.println(getCommand().get(commandString)
+					.getHelpDescription());
 		}
 
+		
 	}
 
 	@Override
@@ -51,10 +51,16 @@ public class Help implements Command {
 
 	@Override
 	public void setArguments(String command) {
-		this.commandString = command;
+		this.commandString = command.trim();
 
 	}
 
-	
+	public Map<String, Command> getCommand() {
+		return command;
+	}
+
+	public void setCommand(Map<String, Command> command) {
+		this.command = command;
+	}
 
 }

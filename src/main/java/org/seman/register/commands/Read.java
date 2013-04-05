@@ -8,27 +8,27 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.seman.register.dbo.DatabaseHandler;
-import org.seman.register.dbo.Kniha;
+import org.seman.register.dbo.Book;
 
 public class Read implements Command {
 
 	private List<List<String>> commandList;
-	private List<Kniha> resultList = new ArrayList<>();
+	private List<Book> resultList = new ArrayList<>();
 
 	@Override
 	public void execute() {
 
 		try {
-			resultList = (List<Kniha>) DatabaseHandler.getDBHandler()
+			resultList = (List<Book>) DatabaseHandler.getDBHandler()
 					.selectFromTable(commandList);
-			Field[] fields = Kniha.class.getDeclaredFields();
+			Field[] fields = Book.class.getDeclaredFields();
 			System.out.println("resultov " + resultList.size()
 					+ " pocet fieldov" + fields.length);
 			for (int i = 0; i < fields.length; i++) {
 
 				System.out.printf("%25s", fields[i].getName() + "|");
 
-				for (Kniha selectedItem : resultList) {
+				for (Book selectedItem : resultList) {
 
 					System.out.printf("%25s", fields[i].get(selectedItem));
 
@@ -112,11 +112,11 @@ public class Read implements Command {
 
 	}
 
-	public List<Kniha> getResultList() {
+	public List<Book> getResultList() {
 		return resultList;
 	}
 
-	public List<Kniha> fillAndGetResultList(String commandString) {
+	public List<Book> fillAndGetResultList(String commandString) {
 		this.setArguments(commandString);
 		this.execute();
 
