@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.seman.register.dao.BookDAOFactory;
 import org.seman.register.dbo.DatabaseHandler;
 
 public class Update implements Command{
@@ -13,7 +14,8 @@ public class Update implements Command{
 
 	@Override
 	public void execute() {
-		DatabaseHandler.getDBHandler().updateTable(commandString);
+		//DatabaseHandler.getDBHandler().updateTable(commandString);
+		BookDAOFactory.create().updateBook(commandString);
 		
 	}
 

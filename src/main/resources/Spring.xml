@@ -9,7 +9,8 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 
 	<!-- <bean id="UI" class="org.seman.register.UserInterface"/> -->
 	<bean id="Kniha" class="org.seman.register.dbo.Book" />
-	<bean id="DBHandler" class="org.seman.register.dbo.DatabaseHandler" />
+	<bean id="BookDAO" class="org.seman.register.dao.BookDAOImpl"/> 
+	<!-- <bean id="DBHandler" class="org.seman.register.dbo.DatabaseHandler" /> -->
 
 	<bean id="create" class="org.seman.register.commands.Create" />
 	<bean id="read" class="org.seman.register.commands.Read" />
@@ -19,7 +20,7 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 	<bean id="help" class="org.seman.register.commands.Help">
 		<property name="command" ref="commandsMap" />
 	</bean>
-	
+		
 	<bean id="Commander" class="org.seman.register.Commander">
 		<property name="commands" ref="commandsMap" />
 	</bean>
@@ -33,4 +34,8 @@ http://www.springframework.org/schema/util http://www.springframework.org/schema
 		<entry key="exit" value-ref="exit" />
 	</util:map>
 
+<<<<<<< HEAD
 </beans>
+=======
+</beans>
+>>>>>>> doplnene DAO

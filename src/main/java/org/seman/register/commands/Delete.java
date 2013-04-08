@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 
+import org.seman.register.dao.BookDAO;
+import org.seman.register.dao.BookDAOFactory;
 import org.seman.register.dbo.DatabaseHandler;
 import org.seman.register.dbo.Book;
 import org.springframework.beans.factory.BeanFactory;
@@ -19,7 +21,9 @@ public class Delete implements Command {
 	@Override
 	public void execute() {
 
-		DatabaseHandler dbHandler = DatabaseHandler.getDBHandler();
+		//DatabaseHandler dbHandler = DatabaseHandler.getDBHandler();
+		
+		BookDAO bookDAO = BookDAOFactory.create();
 		try {
 			if ((commandString == null) || (commandString.isEmpty())) {
 				System.out
@@ -33,7 +37,7 @@ public class Delete implements Command {
 							.fillAndGetResultList(commandString);
 
 					System.out.println("Deleted rows :"
-							+ dbHandler.deleteFromTable(listKnih));
+							+ bookDAO.deleteBook(listKnih));
 
 				} else
 					System.out.println("Deleting canceled!");
@@ -43,7 +47,7 @@ public class Delete implements Command {
 						.fillAndGetResultList(commandString);
 
 				System.out.println("Deleted rows :"
-						+ dbHandler.deleteFromTable(listKnih));
+						+ bookDAO.deleteBook(listKnih));
 
 			}
 		} catch (IOException e) {

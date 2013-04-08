@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.seman.register.dao.BookDAOFactory;
 import org.seman.register.dbo.DatabaseHandler;
 
 public class Create implements Command{
@@ -17,13 +18,9 @@ public class Create implements Command{
 	public void execute() {
 		
 
-		try {
-			//new DatabaseHandler().insertToTable(commandList);
-			DatabaseHandler.getDBHandler().insertToTable(commandList);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		//new DatabaseHandler().insertToTable(commandList);
+		//DatabaseHandler.getDBHandler().insertToTable(commandList);
+		BookDAOFactory.create().createBook(commandList);
 		
 		
 	}

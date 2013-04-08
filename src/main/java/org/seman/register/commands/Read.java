@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.seman.register.dao.BookDAOFactory;
 import org.seman.register.dbo.DatabaseHandler;
 import org.seman.register.dbo.Book;
 
@@ -19,8 +20,10 @@ public class Read implements Command {
 	public void execute() {
 
 		try {
-			resultList = (List<Book>) DatabaseHandler.getDBHandler()
-					.selectFromTable(commandList);
+//			resultList = (List<Book>) DatabaseHandler.getDBHandler()
+//					.selectFromTable(commandList);
+			resultList = BookDAOFactory.create().findBook(commandList);
+			
 			Field[] fields = Book.class.getDeclaredFields();
 			System.out.println("resultov " + resultList.size()
 					+ " pocet fieldov" + fields.length);
@@ -50,8 +53,7 @@ public class Read implements Command {
 				}
 				System.out.println();
 			}
-		} catch (IOException | IllegalArgumentException
-				| IllegalAccessException e) {
+		} catch (IllegalArgumentException| IllegalAccessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

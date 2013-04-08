@@ -4,10 +4,12 @@ import java.awt.event.KeyEvent;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PipedInputStream;
 import java.security.acl.LastOwnerException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,6 +19,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.seman.register.commands.*;
+import org.seman.register.dao.BookDAOFactory;
+import org.seman.register.dao.BookDAOImpl;
 import org.seman.register.dbo.DatabaseHandler;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.xml.XmlBeanFactory;
@@ -49,9 +53,14 @@ public class Commander {
 //		dbhandler.pushObjectsToDB();
 		
 		//ApplicationContext context = new ClassPathXmlApplicationContext("Spring.xml");
+		
+		
+		
 		BeanFactory beanFactory = new XmlBeanFactory(new FileSystemResource("src/main/resources/Spring.xml"));
 		
-		DatabaseHandler.getDBHandler().pushObjectsToDB();
+		//DatabaseHandler.getDBHandler().pushObjectsToDB();
+		
+		BookDAOFactory.create().pushObjectsToDB();
 		
 		Commander commander = (Commander) beanFactory.getBean("Commander");
 		
